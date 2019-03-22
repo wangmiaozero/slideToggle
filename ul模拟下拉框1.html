@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <style type="text/css">
+            /*css*/
+            /*通用样式*/
+            body{
+                background: #FFBD1E;
+            }
+            ul,li{
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+            /*下拉框样式*/
+            #select{
+                margin:100px;
+                background: rgba(0,0,0,0);
+                width: 249px;
+                height: 40px;
+                font-family: "微软雅黑";
+                font-size: 18px;
+                color: white;
+                border: 1px #1a1a1a solid;
+                border-radius: 5px;
+            }
+            .select-head{
+                overflow: hidden;
+                width: 249px;
+                height: 40px;
+                box-sizing: border-box;
+                padding: 0 10px;
+                line-height: 40px;
+            }
+            .select-head .select-head-cont{
+                float: left;
+            }
+            .select-head .select-icon{
+                float: right;
+            }
+            .option{
+                text-indent: 10px;
+                margin-top: 1px;
+                width: 249px;
+                color: black;
+                background: rgba(236,111,111,0.1);
+                line-height: 25px;
+                border: 1px #cfcfcf solid;
+                display: none;
+            }
+            .option-item:hover{
+                background: rgba(204,106,67,0.3);
+            }
+            .click_bg{
+                background: rgba(204,106,67,0.3);
+            }
+            .rotate {
+                transform-origin: center center;
+                /* //旋转中心要是正中间 才行*/
+                transform: rotate(180deg);
+                -webkit-transform: rotate(180deg);
+                -moz-transform: rotate(180deg);
+                -ms-transform: rotate(180deg);
+                -o-transform: rotate(180deg);
+                transition: transform 0.2s;
+                -moz-transition: -moz-transform 0.2s;
+                -moz-transition: -moz-transform 0.2s;
+                -o-transition: -o-transform 0.2s;
+                -ms-transition: -ms-transform 0.2s;
+            }
+            
+            .rotate1 {
+                transform-origin: center center;
+                transform: rotate(0deg);
+                /*//返回原点*/
+                -webkit-transform: rotate(0deg);
+                -moz-transform: rotate(deg);
+                -ms-transform: rotate(0deg);
+                -o-transform: rotate(0deg);
+                transition: transform 0.2s;
+                -moz-transition: -moz-transform 0.2s;
+                -moz-transition: -moz-transform 0.2s;
+                -o-transition: -o-transform 0.2s;
+                -ms-transition: -ms-transform 0.2s;
+            }
+        </style>
+    </head>
+    <body>
+        <!--html-->
+        <ul id="select">
+            <li>
+                <div class="select-head">
+                    <span class="select-head-cont"></span>
+                    <span class="select-icon">▼</span>
+                </div>
+                <ul class="option">
+                    <li class="option-item">chrome</li>
+                    <li class="option-item">safari</li>
+                    <li class="option-item">Edge</li>
+                    <li class="option-item">firefox</li>
+                    <li class="option-item">ie8</li>
+                </ul>
+                
+            </li>
+        </ul>
+        <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+        <script type="text/javascript">
+            //初始化赋值
+            $('.select-head .select-head-cont').html($('.option li').eq(0).html());
+            
+            //点击弹出下拉列表
+            $('.select-head').click(function(event){
+                event.stopPropagation();//阻止冒泡~必须条件！！
+                $('.option').slideToggle(); 
+                
+                //箭头动画
+                if($('.select-icon').hasClass('rotate')){
+                    $('.select-icon').addClass('rotate1').removeClass('rotate');
+                }else {
+                    $('.select-icon').removeClass('rotate1').addClass('rotate');
+                }
+            });
+            
+            //选中后赋值
+            $('.option li').click(function(){
+                console.log($(this).index());
+                $(this).addClass('click_bg').siblings().removeClass('click_bg');
+                $('.select-head .select-head-cont').html($('.option li').eq($(this).index()).html());
+                $('.select-head .select-icon').addClass('rotate1').removeClass('rotate');
+            });
+            
+            //点击下拉菜单之外隐藏列表
+            $(document).click(function(){               
+                $(".option").hide();
+                $('.select-icon').addClass('rotate1').removeClass('rotate');
+            });
+
+        </script>
+    </body>
+</html>
